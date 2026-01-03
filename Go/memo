@@ -1,0 +1,6 @@
+mkdir my-go-sample
+cd my-go-sample/
+go mod init github.com/sougyo/PlayGround/my-go-sample
+vim main.go
+go run main.go    or
+go build main.go

@@ -1,0 +1,33 @@
+name: Go Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # ジョブ全体の実行ディレクトリを指定
+    defaults:
+      run:
+        working-directory: Go/my-go-sample
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+        # サブディレクトリにある go.mod を参照してキャッシュを有効化
+        cache-dependency-path: Go/my-go-sample/go.mod
+
+    - name: Install dependencies
+      run: go mod download
+
+    - name: Run tests
+      run: go test -v ./...
